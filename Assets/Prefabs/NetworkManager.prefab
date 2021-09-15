@@ -53,6 +53,7 @@ MonoBehaviour:
     RegisteredScenes:
     - SampleScene
     - MainMenuScene
+    - PregameScene
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 7492404018829534555, guid: 57b589e0ca053d64690deae4efc73c6f, type: 3}

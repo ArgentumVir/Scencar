@@ -1,4 +1,5 @@
 using UnityEngine;
+using ExtensionMethods;
 
 public class ExtendedMonoBehaviour : MonoBehaviour
 {
@@ -14,15 +15,20 @@ public class ExtendedMonoBehaviour : MonoBehaviour
         return child.gameObject;
     }
 
-    protected T FetchComponent<T>()
+    // protected T FetchComponent<T>()
+    // {
+    //     T component = transform.GetComponent<T>();
+
+    //     if (component == null)
+    //     {
+    //         throw new ComponentNotFoundException($"Component of type '${typeof(T)}' not found.");
+    //     }
+
+    //     return component;
+    // }
+
+    protected T FetchChildComponent<T>(string name)
     {
-        T component = transform.GetComponent<T>();
-
-        if (component == null)
-        {
-            throw new ComponentNotFoundException($"Component of type '${typeof(T)}' not found.");
-        }
-
-        return component;
+        return Fetch(name).FetchComponent<T>();
     }
 }

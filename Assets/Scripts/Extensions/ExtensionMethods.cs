@@ -14,5 +14,17 @@ namespace ExtensionMethods
 
             return component;
         }
+
+        public static T FetchComponent<T>(this GameObject gameObject)
+        {
+            T component = gameObject.GetComponent<T>();
+
+            if (component == null)
+            {
+                throw new ComponentNotFoundException($"Component of type '${typeof(T)}' not found in children.");
+            }
+
+            return component;
+        }
     }
 }
