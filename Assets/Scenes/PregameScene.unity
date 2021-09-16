@@ -2684,6 +2684,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7575951821692048038, guid: 75d0b87d5284c574eb3a75a98e0db33a, type: 3}
+      propertyPath: NetworkConfig.ConnectionApproval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7575951821692048038, guid: 75d0b87d5284c574eb3a75a98e0db33a, type: 3}
       propertyPath: NetworkConfig.RegisteredScenes.Array.size
       value: 4
       objectReference: {fileID: 0}

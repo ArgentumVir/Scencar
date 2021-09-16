@@ -7,6 +7,7 @@ using MLAPI;
 using MLAPI.Transports.UNET;
 using MLAPI.Messaging;
 using MLAPI.SceneManagement;
+using System.Text;
 
 public class PregameMenuController : ExtendedMonoBehaviour
 {
@@ -34,10 +35,11 @@ public class PregameMenuController : ExtendedMonoBehaviour
     {
         NetworkManager.Singleton.DontDestroy = true;
         NetworkManager.Singleton.NetworkConfig.EnableSceneManagement = true;
+
         ipAddress = DEFAULT_IP_ADDRESS;
         port = DEFAULT_PORT;
-        playerName = DEFAULT_PLAYER_NAME;
         deckName = DEFAULT_DECK_NAME;
+        playerName = DEFAULT_PLAYER_NAME;
 
         var selectedDeckNameText = FetchChildComponent<TextMeshProUGUI>(SELECTED_DECK_NAME_GAME_OBJECT);
         var ipAddressInput = FetchChildComponent<TMP_InputField>(SELECTED_IP_ADDRESS_INPUT_GAME_OBJECT);
@@ -53,20 +55,12 @@ public class PregameMenuController : ExtendedMonoBehaviour
 
     public void HandleHostClick()
     {
-        SetNetworkManagerIpAddressAndPort(ipAddress, port);
-        NetworkManager.Singleton.StartHost();
-
-        // SceneManager.LoadScene("MatchScene");
-        NetworkSceneManager.SwitchScene("MatchScene");
+        ConnectionManager.Host(ipAddress, port, playerName);
     }
 
     public void HandleJoinClick()
     {
-        SetNetworkManagerIpAddressAndPort(ipAddress, port);
-        NetworkManager.Singleton.StartClient();
-
-        // NetworkSceneManager.SwitchScene("MatchScene");
-        // SceneManager.LoadScene("MatchScene");
+        ConnectionManager.Join(ipAddress, port, playerName);
     }
 
     public void HandleSelectDeckClick()
@@ -92,12 +86,5 @@ public class PregameMenuController : ExtendedMonoBehaviour
     public void HandlePlayerNameChange(string text)
     {
         playerName = (text.Length > 256) ? text.Substring(0, 255) : text;
-    }
-
-    private static void SetNetworkManagerIpAddressAndPort(string ipAddress, string port)
-    {
-        NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = ipAddress;
-        NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectPort = int.Parse(port);
-        NetworkManager.Singleton.GetComponent<UNetTransport>().ServerListenPort = int.Parse(port);
     }
 }

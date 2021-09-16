@@ -1,7 +1,8 @@
 using UnityEngine;
 using ExtensionMethods;
+using MLAPI;
 
-public class ExtendedMonoBehaviour : MonoBehaviour
+public class ExtendedNetworkBehaviour : NetworkBehaviour
 {
     protected GameObject Fetch(string name)
     {
