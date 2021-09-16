@@ -16,6 +16,7 @@ public static class ConnectionManager
 
         NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
         NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
+        NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnect;
 
         Vector3 spawnPosition = Vector3.zero;
         Quaternion spawnRotation = Quaternion.identity;
@@ -41,7 +42,6 @@ public static class ConnectionManager
 
         NetworkManager.Singleton.StartClient();
     }
-
 
     private static void ApprovalCheck(
         byte[] connectionData,
@@ -81,11 +81,21 @@ public static class ConnectionManager
         callback(true, null, isApproved, spawnPosition, spawnRotation);
     }
 
+    private static void HandleClientConnect(ulong clientId)
+    {
+        Debug.Log($"Client #{clientId.ToString()} has connected.");
+        if (NetworkManager.Singleton.IsServer)
+        {
+            MatchExecutor.Singleton.HandlePlayerConnect(clientId);
+        }
+    }
+
     private static void HandleClientDisconnect(ulong clientId)
     {
         Debug.Log($"Client #{clientId.ToString()} has disconnected.");
         if (NetworkManager.Singleton.IsServer)
         {
+            MatchExecutor.Singleton.HandlePlayerDisconnect(clientId);
             ClientDataManager.Remove(clientId);
         }
     }

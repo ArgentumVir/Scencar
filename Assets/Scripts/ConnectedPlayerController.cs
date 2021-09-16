@@ -5,40 +5,37 @@ using MLAPI;
 using MLAPI.NetworkVariable;
 using UnityEngine;
 
-public class ConnectedPlayerController : NetworkBehaviour
+public class ConnectedPlayerController : MonoBehaviour
 {
-    private NetworkVariableString playerName = new NetworkVariableString();
-    private NetworkObject networkObject;
+    //private NetworkVariableString playerName = new NetworkVariableString();
+    //private NetworkObject networkObject;
 
     void Awake()
     {
         DontDestroyOnLoad(this);
-
-        networkObject = GetComponent<NetworkObject>();
-
-        if (networkObject == null)
-        {
-            throw new NullReferenceException("Did not find component of type 'NetworkObject'.");
-        }
     }
 
-    void Start()
-    {
-        if (IsServer)
-        {
-            playerName.Value = GetOwnClientData().PlayerName;
-        }
-    }
+    //     // networkObject = GetComponent<NetworkObject>();
 
-    private ClientData GetOwnClientData()
-    {
-        return ClientDataManager.Get(
-            networkObject.OwnerClientId
-        );
-    }
+    //     // if (networkObject == null)
+    //     // {
+    //     //     throw new NullReferenceException("Did not find component of type 'NetworkObject'.");
+    //     // }
+    // }
 
-    private void OnEnable()
-    {
+    // void Start()
+    // {
+    //     if (IsServer)
+    //     {
+    //         playerName.Value = GetOwnClientData().PlayerName;
+    //     }
+    // }
 
-    }
+    // private ClientData GetOwnClientData()
+    // {
+    //     return ClientDataManager.Get(
+    //         networkObject.OwnerClientId
+    //     );
+    // }
+
 }

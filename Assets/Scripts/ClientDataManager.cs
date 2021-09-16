@@ -12,7 +12,14 @@ public static class ClientDataManager
 
     public static void Add(ulong clientId, string name)
     {
-        clientData.Add(clientId, new ClientData { PlayerName = name });
+        clientData.Add(
+            clientId,
+            new ClientData
+            {
+                PlayerName = name,
+                ClientId = clientId
+            }
+        );
     }
 
     public static void Remove(ulong clientId)
