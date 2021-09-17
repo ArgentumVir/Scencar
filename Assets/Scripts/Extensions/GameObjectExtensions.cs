@@ -1,7 +1,7 @@
 using UnityEngine;
 namespace ExtensionMethods
 {
-    public static class Extensions
+    public static class GameObjectExtensions
     {
         public static T FetchComponentInChildren<T>(this GameObject gameObject)
         {

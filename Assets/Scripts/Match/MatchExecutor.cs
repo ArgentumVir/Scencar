@@ -13,7 +13,6 @@ public class MatchExecutor : ExtendedNetworkBehaviour
     public NetworkVariableString PlayerTwoName = new NetworkVariableString();
     public NetworkVariableULong PlayerOneClientId = new NetworkVariableULong();
     public NetworkVariableULong PlayerTwoClientId = new NetworkVariableULong();
-
     private Dictionary<ulong, ClientData> spectators = new Dictionary<ulong, ClientData>();
     private NetworkObject networkObject;
     public static MatchExecutor Singleton;
@@ -35,7 +34,6 @@ public class MatchExecutor : ExtendedNetworkBehaviour
            HandlePlayerConnect(NetworkManager.Singleton.LocalClientId);
         }
     }
-
 
     public void HandlePlayerConnect(ulong clientId)
     {
@@ -147,31 +145,31 @@ public class MatchExecutor : ExtendedNetworkBehaviour
 
         foreach(ClientData spectator in spectators.Values)
         {
-            Debug.Log($"Spectator Id: #{spectator.ClientId}");
-            Debug.Log($"Spectator Name: #{spectator.PlayerName}");
+            Debug.Log($"Spectator Id: {spectator.ClientId}");
+            Debug.Log($"Spectator Name: {spectator.PlayerName}");
             Debug.Log("---------------");
         }
     }
 
-    public enum PlayerType
+    public enum PlayerDesignation
     {
         PlayerOne = 1,
         PlayerTwo = 2,
         Spectator = 3
     }
 
-    public PlayerType GetPlayerType(ulong clientId)
+    public PlayerDesignation GetPlayerDesignation(ulong clientId)
     {
         if (PlayerOneClientId.Value == clientId)
         {
-            return PlayerType.PlayerOne;
+            return PlayerDesignation.PlayerOne;
         }
 
         if (PlayerTwoClientId.Value == clientId)
         {
-            return PlayerType.PlayerTwo;
+            return PlayerDesignation.PlayerTwo;
         }
 
-        return PlayerType.Spectator;
+        return PlayerDesignation.Spectator;
     }
 }

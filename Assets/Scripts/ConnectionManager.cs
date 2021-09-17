@@ -7,6 +7,7 @@ using UnityEngine;
 
 public static class ConnectionManager
 {
+    // TODO: Fix issue where Host button causes exception if you previously failed to join a match
     public static void Host(string ipAddress, string port, string playerName)
     {
         SetNetworkManagerIpAddressAndPort(ipAddress, port);
@@ -23,7 +24,7 @@ public static class ConnectionManager
 
         NetworkManager.Singleton.StartHost(spawnPosition, spawnRotation, true, null);
 
-        NetworkSceneManager.SwitchScene("MatchScene");
+        Utilities.Scene.SafeNetworkSwitch("MatchScene");
     }
     public static void Join(string ipAddress, string port, string playerName)
     {
@@ -49,7 +50,7 @@ public static class ConnectionManager
         MLAPI.NetworkManager.ConnectionApprovedDelegate callback
     )
     {
-        Debug.Log($"Client #{clientId.ToString()} is attempting to connect.");
+        Debug.Log($"Client {clientId.ToString()} is attempting to connect.");
 
         ConnectionData data = JsonUtility.FromJson<ConnectionData>(
             Encoding.ASCII.GetString(connectionData)
@@ -61,7 +62,6 @@ public static class ConnectionManager
         Vector3 spawnPosition = Vector3.zero;
         Quaternion spawnRotation = Quaternion.identity;
 
-        // TODO: Change spawns based on player type?
         if (isApproved)
         {
             switch (NetworkManager.Singleton.ConnectedClients.Count)
@@ -83,7 +83,7 @@ public static class ConnectionManager
 
     private static void HandleClientConnect(ulong clientId)
     {
-        Debug.Log($"Client #{clientId.ToString()} has connected.");
+        Debug.Log($"Client {clientId.ToString()} has connected.");
         if (NetworkManager.Singleton.IsServer)
         {
             MatchExecutor.Singleton.HandlePlayerConnect(clientId);
@@ -92,7 +92,7 @@ public static class ConnectionManager
 
     private static void HandleClientDisconnect(ulong clientId)
     {
-        Debug.Log($"Client #{clientId.ToString()} has disconnected.");
+        Debug.Log($"Client {clientId.ToString()} has disconnected.");
         if (NetworkManager.Singleton.IsServer)
         {
             MatchExecutor.Singleton.HandlePlayerDisconnect(clientId);

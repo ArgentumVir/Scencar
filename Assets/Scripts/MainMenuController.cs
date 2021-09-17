@@ -7,12 +7,12 @@ public class MainMenuController : MonoBehaviour
 {
     public void HandlePlayClick()
     {
-        SceneManager.LoadScene("PregameScene");
+        Utilities.Scene.SafeLoad("PregameScene");
     }
 
     public void HandleSettingsClick()
     {
-        SceneManager.LoadScene("SettingsScene");
+        Utilities.Scene.SafeLoad("SettingsScene");
     }
 
     public void HandleDevClick()

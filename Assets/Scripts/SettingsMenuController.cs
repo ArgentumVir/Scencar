@@ -7,6 +7,6 @@ public class SettingsMenuController : MonoBehaviour
 {
     public void HandleBackClick()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        Utilities.Scene.SafeLoad("MainMenuScene");
     }
 }

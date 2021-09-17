@@ -65,12 +65,12 @@ public class PregameMenuController : ExtendedMonoBehaviour
 
     public void HandleSelectDeckClick()
     {
-        SceneManager.LoadScene("DeckSelectScene");
+        Utilities.Scene.SafeLoad("DeckSelectScene");
     }
 
     public void HandleBackClick()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        Utilities.Scene.SafeLoad("MainMenuScene");
     }
 
     public void HandleIpAddressChange(string text)
