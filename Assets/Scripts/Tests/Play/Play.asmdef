@@ -4,7 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "GameAssembly"
+        "GameAssembly",
+        "Unity.TextMeshPro",
+        "Unity.Multiplayer.MLAPI.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
